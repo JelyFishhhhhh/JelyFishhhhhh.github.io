@@ -11,11 +11,13 @@ from aiofiles import open as aopen
 from os.path import isfile, join
 from os import listdir
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
 if not isfile("config.json"):
+    f = open("config.json", "w+")
     run(gen_CONFIG)
+
+app = FastAPI()
+
+app.mount(path="/static", app=StaticFiles(directory="static"), name="static")
 
 CONFIG = Json.load_nowait("config.json")
 
@@ -34,10 +36,7 @@ async def home():
     else:
         return "404 Not-Found"
 
-def Run():
+if __name__ == "__main__":
     config = Config(app, host = CONFIG["HOST"], port = CONFIG["PORT"])
     server = Server(config = config)
     server.run()
-
-if __name__ == "__main__":
-    Run()
