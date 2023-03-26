@@ -29,7 +29,7 @@ CONFIG = Json.load_nowait("config.json")
 async def home():
     # files = [_f for _f in listdir("templates") if isfile(join("templates", _f))]
     
-    files = "templates\\index.html"
+    files = "templates/index.html"
 
     if isfile(files):
 
