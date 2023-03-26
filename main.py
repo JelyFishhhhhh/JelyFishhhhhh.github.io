@@ -11,9 +11,13 @@ from aiofiles import open as aopen
 from os.path import isfile, join
 from os import listdir
 
-if not isfile("config.json"):
-    f = open("config.json", "w+")
-    run(gen_CONFIG)
+privacy_file = ["config.json"]
+
+for f in privacy_file:
+    if not isfile(f):
+        _ = open(f, "w+")
+        if f == "config.json":
+            gen_CONFIG()
 
 app = FastAPI()
 
